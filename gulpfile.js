@@ -55,7 +55,7 @@ gulp.task('server', function() {
 
 // })
 
-gulp.task('default', gulp.series('sass', 'server', 'watch'));
+gulp.task('default', gulp.series('sass', 'watch'));
 
 //-----------------------------------------------------------------------
 
@@ -69,5 +69,15 @@ gulp.task('buglify', function() {
 
 gulp.task('bcss', function() {
     return gulp.src('./build/css/*.css')
+        .pipe(clean())
         .pipe(gulp.dest('./dist/css'))
 })
+
+gulp.task('html', function() {
+    return gulp.src('./build/index.html')
+
+    .pipe(gulp.dest('./dist'))
+})
+
+// 线上环境
+gulp.task('dist', gulp.series('buglify', 'bcss', 'bhtml'))
